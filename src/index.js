@@ -1,12 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+
+import App from './components/app';
+import './sw-icons/fonts/starwars-glyphicons-webfont.ttf';
+import './sw-icons/css/starwars-glyphicons.css';
+
+
+//import SwapiData from './services/swapi-data';
+
+
+
+/*const swData = new SwapiData();
+swData.getAllPlanet().then(planets => {
+	planets.forEach(p => {
+		//console.log(p.name)
+	});
+});
+
+swData.getPlanet(3).then(planet => console.log(planet.name));
+
+swData.getAllVehicles().then(vehicles => {
+	vehicles.forEach(v => {
+		console.log(v.name);
+	});
+});
+
+swData.getVehicles(4).then(vehicle => console.log(vehicle.name));*/
 
 ReactDOM.render(<App />, document.getElementById('root'));
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
