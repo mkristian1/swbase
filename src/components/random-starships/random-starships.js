@@ -6,10 +6,7 @@ export default class RandomStarships extends Component {
 	swapiData = new SwapiData();
 
 	state = {
-		id: null,
-		name: null,
-		model: null,
-		manufacturer: null
+		starship: {}
 	};
 
 	constructor() {
@@ -17,27 +14,23 @@ export default class RandomStarships extends Component {
 		this.updateStarship();
 	};
 
+	onStarshipLoaded = (starship) => {
+		this.setState({starship});
+	} 
+
 	updateStarship() {
 
 		const id = Math.floor(Math.random()* (14 - 9)) + 9;
 
 		this.swapiData.getStarship(id)
-		.then(starship => {
-			this.setState({
-				id,
-				name: starship.name,
-				model: starship.model,
-				manufacturer: starship.manufacturer,
-				crew: starship.crew,
-				speed: starship.max_atmosphering_speed
-
-			});
-		});
+		.then(
+			this.onStarshipLoaded
+		);
 	};
 	
 	render() {
 
-		const {id, name, model, manufacturer, crew, speed} = this.state;
+		const {starship: { id, name, model, manufacturer, crew, speed } } = this.state;
 		const imgUrl = `https://starwars-visualguide.com
 		/assets/img/starships/${id}.jpg`;
 

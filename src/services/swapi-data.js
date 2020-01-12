@@ -39,9 +39,28 @@ export default class SwapiData {
 
 	async getAllStarships() {
 		const AllStarshipsArr = await this.getData('/starships/');
+		return AllStarshipsArr.map(this.transformStarship);
 	}
 
-	getStarship(id) {
-		return this.getData(`/starships/${id}`)
+	async getStarship(id) {
+		const starship =  await this.getData(`/starships/${id}/`);
+		return this.transformStarship(starship);
+	}
+
+	getId(item) {
+		const idRegExp = /\/([0-9]*)\/$/;
+		return item.url.match(idRegExp)[1];	
+	}
+
+	transformStarship(starship) {
+		return {
+				id: this.getId(starship),
+				name: starship.name,
+				model: starship.model,
+				manufacturer: starship.manufacturer,
+				crew: starship.crew,
+				speed: starship.max_atmosphering_speed
+
+			}
 	}
 }
