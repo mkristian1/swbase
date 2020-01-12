@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import SwapiData from '../../services/swapi-data';
-import './random-starships.css';
 
 export default class RandomStarships extends Component {
 
