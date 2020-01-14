@@ -31,7 +31,6 @@ export default class RandomStarships extends Component {
 		})
 	};
 
-	updateStarship() {
 
 		const id = Math.floor(Math.random()* (14 - 9)) + 9;
 
