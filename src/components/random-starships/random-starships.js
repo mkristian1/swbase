@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import SwapiData from '../../services/swapi-data';
 import Loader from '../loader/loader';
+import Errors from '../errors/errors';
 
 export default class RandomStarships extends Component {
 
@@ -8,7 +9,8 @@ export default class RandomStarships extends Component {
 
 	state = {
 		starship: {},
-		loading: true
+		loading: true,
+		error: false
 	};
 
 	constructor() {
@@ -17,10 +19,16 @@ export default class RandomStarships extends Component {
 	};
 
 	onStarshipLoaded = (starship) => {
-		this.setState(
-			{starship, 
-			loading: false}
-			);
+		this.setState({
+			starship, 
+			loading: false
+			});
+	};
+
+	onErrors = (err) => {
+		this.setState({
+			error: true,
+		})
 	};
 
 	updateStarship() {
@@ -29,20 +37,24 @@ export default class RandomStarships extends Component {
 
 		this.swapiData.getStarship(id)
 		.then(
-			this.onStarshipLoaded
+			this.onStarshipLoaded, this.onErrors
 		);
 	};
+
 	
+
 	render() {
 
-		const {starship, loading, id } = this.state;
+		const {starship, loading, id, error} = this.state;
 		
+		const onError = loading && error ? <Errors /> : null;
 		const preLoader = loading ? <Loader /> : null;
 		const content = !loading ? <StarshipView starship={starship} /> : null;
 
 		return (
 
 			<div className="random-starships card border-dark mb-3">
+				 {onError}	
 				 {preLoader}
 				 {content}          
             </div>
