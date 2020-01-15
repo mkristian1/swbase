@@ -20,8 +20,8 @@ export default class SwapiData {
 	}
 
 	async getAllPeople() {		
-		const allPeopleArr = await this.getData('/planets/');
-		return allPeopleArr.results;
+		const allPeopleArr = await this.getData('/people/');
+		return allPeopleArr.results.map(this.transformPerson);
 	}
 
 	getPeople(id) {
@@ -52,7 +52,7 @@ export default class SwapiData {
 		return item.url.match(idRegExp)[1];	
 	}
 
-	transformStarship(starship) {
+	transformStarship = (starship) =>  {
 		return {
 				id: this.getId(starship),
 				name: starship.name,
@@ -61,6 +61,16 @@ export default class SwapiData {
 				crew: starship.crew,
 				speed: starship.max_atmosphering_speed
 
+			}
+	}
+
+	transformPerson = (people) =>  {
+		return {
+				id: this.getId(people),
+				name: people.name,
+				hairColor: people.hair_color,
+				height: people.height,
+				birthYear: people.birth_year
 			}
 	}
 }

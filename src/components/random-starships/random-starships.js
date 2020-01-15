@@ -13,10 +13,10 @@ export default class RandomStarships extends Component {
 		error: false
 	};
 
-	constructor() {
-		super();
+	componentDidMount() {
 		this.updateStarship();
-	};
+		setInterval(this.updateStarship, 5000);
+	}
 
 	onStarshipLoaded = (starship) => {
 		this.setState({
@@ -30,8 +30,8 @@ export default class RandomStarships extends Component {
 			error: true,
 		})
 	};
-
-
+	
+	updateStarship = () => {
 		const id = Math.floor(Math.random()* (14 - 9)) + 9;
 
 		this.swapiData.getStarship(id)
@@ -40,11 +40,9 @@ export default class RandomStarships extends Component {
 		);
 	};
 
-	
-
 	render() {
 
-		const {starship, loading, id, error} = this.state;
+		const {starship, loading, error} = this.state;
 		
 		const onError = loading && error ? <Errors /> : null;
 		const preLoader = loading ? <Loader /> : null;
@@ -70,24 +68,25 @@ const StarshipView = ( {starship} ) => {
 		
 	return(
 		<React.Fragment>
-			    <div className="card-header">
-	                	<i className="swg swg-falcon-3"></i> Starships
-	                </div>
-	                <div className="card-body">
-	                  <img alt="" className="img-planet img-thumbnail
-	                  img-fluid float-lg-right mb-2" src={imgUrl}/>
-	                  <h4 className="card-title">{name}</h4>
-	                  <div className="list-group">
-	                  	<p className="list-group-item list-group-item-action">
-	                  	Model: {model}</p>
-	                  	<p className="list-group-item list-group-item-action">
-	                  	Manufacturer: {manufacturer}</p>
-	                  	<p className="list-group-item list-group-item-action">
-	                  	Crew: {crew}</p>
-	                  	<p className="list-group-item list-group-item-action">
-	                  	Max atmosphering speed: {speed}</p>
-	                  </div>
-	            </div>
+			<div className="card-header">
+					<i className="swg swg-falcon-3"></i> Starships
+			</div>
+			<div className="card-body">
+					<img alt="" className="img-planet img-thumbnail
+					img-fluid float-lg-right mb-2" src={imgUrl}/>
+					<h4 className="card-title">{name}</h4>
+				<div className="list-group">
+					<p className="list-group-item list-group-item-action">
+					Model: {model}</p>
+					<p className="list-group-item list-group-item-action">
+					Manufacturer: {manufacturer}</p>
+					<p className="list-group-item list-group-item-action">
+					Crew: {crew}</p>
+					<p className="list-group-item list-group-item-action">
+					Max atmosphering speed: {speed}</p>
+					
+				</div>
+			</div>
 		</React.Fragment>
 	);
 };
