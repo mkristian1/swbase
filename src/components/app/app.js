@@ -14,11 +14,10 @@ import './app.css';
 export default class App extends Component {
 
 	state = {
-		selectedId: null
+		selectedId: 1
 	}
 
 	getSelectedPerson = (id) => {
-		console.log(id)
 		this.setState({
 			selectedId: id
 		});

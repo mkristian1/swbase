@@ -24,8 +24,9 @@ export default class SwapiData {
 		return allPeopleArr.results.map(this.transformPerson);
 	}
 
-	getPeople(id) {
-		return this.getData(`/people/${id}`);
+	async getPeople(id) {
+		const peopleArr =  await this.getData(`/people/${id}`);
+		return this.transformPerson(peopleArr);
 	}
 
 	async getAllVehicles() {
@@ -70,7 +71,8 @@ export default class SwapiData {
 				name: people.name,
 				hairColor: people.hair_color,
 				height: people.height,
-				birthYear: people.birth_year
+				birthYear: people.birth_year,
+				mass: people.mass
 			}
 	}
 }

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './item-list.css';
 import Loader from '../loader/loader';
 import SwapiData from '../../services/swapi-data';
 import Errors from '../errors/errors';
@@ -19,8 +20,8 @@ export default class ItemList extends Component {
 			this.setState({
 				personList,
 				loading: false
-			}, this.onErrors);
-		});		
+			});
+		}, this.onErrors);		
 	}
 
 	onErrors = (err) => {
@@ -44,20 +45,19 @@ export default class ItemList extends Component {
 	render() {
 
 		const { personList, loading, error } = this.state;
+				
 		const onError = loading && error ? <Errors /> : null;
 		const itemList = this.getPersonList(personList);
 		const preloader = loading ? <Loader /> : null;
 
 		return(
-		<ul className="list-group">
-			<li className="list-group-item d-flex 
-			justify-content-between
-			align-items-center">
-				{onError}
-				{preloader}
-			</li>
- 			{itemList}
-		</ul>
+			<div className="item-list card">
+				<ul className="list-group">					
+					{onError}
+					{preloader}
+					{itemList}
+				</ul>
+			</div>
 		);
 	};
 };
