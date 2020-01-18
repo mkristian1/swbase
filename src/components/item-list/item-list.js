@@ -1,24 +1,22 @@
 import React, {Component} from 'react';
 import './item-list.css';
 import Loader from '../loader/loader';
-import SwapiData from '../../services/swapi-data';
 import Errors from '../errors/errors';
 
-export default class ItemList extends Component {
-	
-	swapiData = new SwapiData();
+export default class ItemList extends Component {	
 	
 	state = {
-		personList: [],
+		itemList: [],
 		loading: true,
 		error: false
 	};	
 
-	componentDidMount() {
-		this.swapiData.getAllPeople()
-		.then(personList => {
+	componentDidMount() {		
+		const {itemData} = this.props;
+
+		itemData().then(itemList => {
 			this.setState({
-				personList,
+				itemList,
 				loading: false
 			});
 		}, this.onErrors);		
@@ -30,13 +28,16 @@ export default class ItemList extends Component {
 		})
 	}
 
-	getPersonList(arr) {
-		return arr.map(({id, name}) => {
+	getItemList(arr) {
+		return arr.map(({id, name, diameter, birthYear}) => {
+			const isHasBirth = birthYear ? `(Birth Year: ${birthYear})` : null;
+			const isHasDiameter = diameter ? `(Diameter: ${diameter})` : null;
+			
 			return(
 			<li key={id} className="list-group-item d-flex 
 			justify-content-between align-items-center"
 			onClick={() => this.props.getSelectedPerson(id)}>
-				{name}
+				{name} {isHasDiameter} {isHasBirth}
 			</li>
 			);
 		});
@@ -44,10 +45,10 @@ export default class ItemList extends Component {
 
 	render() {
 
-		const { personList, loading, error } = this.state;
+		const { itemList, loading, error } = this.state;
 				
 		const onError = loading && error ? <Errors /> : null;
-		const itemList = this.getPersonList(personList);
+		const itemData = this.getItemList(itemList);
 		const preloader = loading ? <Loader /> : null;
 
 		return(
@@ -55,7 +56,7 @@ export default class ItemList extends Component {
 				<ul className="list-group">					
 					{onError}
 					{preloader}
-					{itemList}
+					{itemData}
 				</ul>
 			</div>
 		);

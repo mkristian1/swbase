@@ -15,7 +15,11 @@ export default class RandomStarships extends Component {
 
 	componentDidMount() {
 		this.updateStarship();
-		setInterval(this.updateStarship, 5000);
+		this.interval = setInterval(this.updateStarship, 5000);
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.interval);
 	}
 
 	onStarshipLoaded = (starship) => {
