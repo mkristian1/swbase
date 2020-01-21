@@ -36,7 +36,7 @@ export default class ItemList extends Component {
 			return(
 			<li key={id} className="list-group-item d-flex 
 			justify-content-between align-items-center"
-			onClick={() => this.props.getSelectedPerson(id)}>
+			onClick={() => this.props.getSelectedCharacter(id)}>
 				{name} {isHasDiameter} {isHasBirth}
 			</li>
 			);

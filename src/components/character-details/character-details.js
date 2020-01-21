@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import './person-details.css';
+import './character-details.css';
 import SwapiData from '../../services/swapi-data';
 import Loader from '../loader/loader';
 import Errors from '../errors/errors';
 
-export default class PersonDetails extends Component {
+export default class CharacterDetails extends Component {
 
 	state = {
-		person: [],
+		character: [],
 		loading: true,
 		error: false
 	}
@@ -19,17 +19,17 @@ export default class PersonDetails extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		if (this.props.personId !== prevProps.personId) {
+		if (this.props.characterId !== prevProps.characterId) {
 			this.updateCharacter();
 		}
 	}
 
 	updateCharacter() {
-		const { personId } = this.props;
-		this.swapiData.getPeople(personId)
-			.then(person => {
+		const { characterId } = this.props;
+		this.swapiData.getCharacter(characterId)
+			.then(character => {
 				this.setState({
-					person,
+					character,
 					loading: false
 				});
 			}, this.onErrors)
@@ -43,15 +43,15 @@ export default class PersonDetails extends Component {
 	}
 
 	render() {
-		const { person, error, loading } = this.state;
+		const { character, error, loading } = this.state;
 
 		const onError = loading && error ? <Errors /> : null;
 		const preLoader = loading ? <Loader /> : null;
-		const content = !loading && !error ? <ViewCharacter character={person} /> : null;
+		const content = !loading && !error ? <ViewCharacter character={character} /> : null;
 
 
 		return (
-			<div className="person-details">
+			<div className="character-details">
 				<div className="card border-primary mb-3">
 					{onError}
 					{preLoader}

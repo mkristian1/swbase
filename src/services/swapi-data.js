@@ -16,17 +16,18 @@ export default class SwapiData {
 	}
 
 	getPlanet = async (id) => {
-		return this.getData(`/planets/${id}`);
+		const PlanetArr = await this.getData(`/planets/${id}`);
+		return this.transformPlanet(PlanetArr);
 	}
 
-	getAllPeople = async () => {
-		const allPeopleArr = await this.getData('/people/');
-		return allPeopleArr.results.map(this.transformPerson);
+	getAllCharacter = async () => {
+		const allCharacterArr = await this.getData('/people/');
+		return allCharacterArr.results.map(this.transformCharacter);
 	}
 
-	getPeople = async (id) => {
-		const peopleArr = await this.getData(`/people/${id}`);
-		return this.transformPerson(peopleArr);
+	getCharacter = async (id) => {
+		const characterArr = await this.getData(`/people/${id}`);
+		return this.transformCharacter(characterArr);
 	}
 
 	getAllVehicles = async () => {
@@ -65,7 +66,7 @@ export default class SwapiData {
 		}
 	}
 
-	transformPerson = (people) => {
+	transformCharacter = (people) => {
 		return {
 			id: this.getId(people),
 			name: people.name,
