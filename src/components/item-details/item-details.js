@@ -1,35 +1,35 @@
 import React, { Component } from 'react';
-import './character-details.css';
-import SwapiData from '../../services/swapi-data';
+import './item-details.css';
 import Loader from '../loader/loader';
 import Errors from '../errors/errors';
 
-export default class CharacterDetails extends Component {
+export default class ItemDetails extends Component {
 
 	state = {
-		character: [],
+		item: [],
+		image: null,
 		loading: true,
 		error: false
 	}
 
-	swapiData = new SwapiData;
-
 	componentDidMount() {
-		this.updateCharacter();
+		this.updateItem();
 	}
 
 	componentDidUpdate(prevProps) {
-		if (this.props.characterId !== prevProps.characterId) {
-			this.updateCharacter();
+		if (this.props.itemId !== prevProps.itemId) {
+			this.updateItem();
 		}
 	}
 
-	updateCharacter() {
-		const { characterId } = this.props;
-		this.swapiData.getCharacter(characterId)
-			.then(character => {
+	updateItem() {
+		const { itemId, itemData, itemImgUrl } = this.props;
+	
+		itemData(itemId)
+			.then(item => {
 				this.setState({
-					character,
+					item,
+					image: itemImgUrl(item),
 					loading: false
 				});
 			}, this.onErrors)
@@ -43,15 +43,13 @@ export default class CharacterDetails extends Component {
 	}
 
 	render() {
-		const { character, error, loading } = this.state;
-
+		const { item, image, error, loading} = this.state;
 		const onError = loading && error ? <Errors /> : null;
 		const preLoader = loading ? <Loader /> : null;
-		const content = !loading && !error ? <ViewCharacter character={character} /> : null;
-
-
+		const content = !loading && !error ? <ViewItem item={item} img={image} /> : null;
+	
 		return (
-			<div className="character-details">
+			<div className="item-details">
 				<div className="card border-primary mb-3">
 					{onError}
 					{preLoader}
@@ -63,11 +61,9 @@ export default class CharacterDetails extends Component {
 };
 
 
-const ViewCharacter = ({ character }) => {
-	const { name, id, birthYear, mass, height, hairColor } = character;
-	const imgUrl = `https://starwars-visualguide.com
-	/assets/img/characters/${id}.jpg`;
-
+const ViewItem = ({ item, img}) => {
+	const { name,birthYear, mass, height, hairColor } = item;
+	
 	return (
 		<React.Fragment>
 			<div className="card-header">
@@ -76,7 +72,7 @@ const ViewCharacter = ({ character }) => {
 				</h4>
 			</div>
 			<div className="card-body">
-				<img className="float-md-right img-fluid rounded" alt={name} src={imgUrl} />
+				<img className="float-md-right img-fluid rounded" alt={name} src={img} />
 				<div className="list-group">
 					<p className="list-group-item list-group-item-action">
 						Birth Year: {birthYear}

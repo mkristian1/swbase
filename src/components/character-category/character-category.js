@@ -3,16 +3,15 @@ import SwapiData from '../../services/swapi-data';
 import ItemList from '../item-list';
 import MainContent from '../main-content';
 
-import CharacterDetails from '../character-details';
-import { render } from '@testing-library/react';
+import ItemDetails from '../item-details';
 
 export default class CharacterCategory extends Component {
+
     swapiData = new SwapiData();
-    
+
     state = {
         selectedId: 1,
-        selectIdPlanet: 2
-    }
+    };
 
     getSelectedCharacter = (id) => {
         this.setState({
@@ -21,11 +20,17 @@ export default class CharacterCategory extends Component {
     };
 
     render() {
+        const {getCharacterImg, getCharacter, getAllCharacter } =this.swapiData;
         const itemListCharacter = (<ItemList
             getSelectedCharacter={this.getSelectedCharacter}
-            itemData={this.swapiData.getAllCharacter} />);
+            itemData={getAllCharacter} />);
 
-        const CharacterTemplate = (<CharacterDetails characterId={this.state.selectedId} />);
+        const CharacterTemplate = (
+            <ItemDetails
+                itemData={getCharacter}
+                itemId={this.state.selectedId}
+                itemImgUrl={getCharacterImg}
+            />);
 
         return (
             <MainContent left={itemListCharacter} right={CharacterTemplate} />
