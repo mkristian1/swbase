@@ -3,41 +3,20 @@ import './item-list.css';
 import Loader from '../loader/loader';
 import Errors from '../errors/errors';
 
-export default class ItemList extends Component {	
+class ItemList extends Component {	
 	
-	state = {
-		itemList: [],
-		loading: true,
-		error: false
-	};	
-
-	componentDidMount() {		
-		const {itemData} = this.props;
-
-		itemData().then(itemList => {
-			this.setState({
-				itemList,
-				loading: false
-			});
-		}, this.onErrors);		
-	}
-
-	onErrors = (err) => {
-		this.setState({
-			error: true
-		})
-	}
+	
+	
 
 	getItemList(arr) {
-		return arr.map(({id, name, diameter, birthYear}) => {
-			const isHasBirth = birthYear ? `(Birth Year: ${birthYear})` : null;
-			const isHasDiameter = diameter ? `(Diameter: ${diameter})` : null;
-			
+		return arr.map((item) => {
+			const {id} = item;
+			const label = this.props.children(item);
 			return(
 			<li key={id} className="list-group-item d-flex 
 			justify-content-between align-items-center"
 			onClick={() => this.props.getSelectedCharacter(id)}>
-				{name} {isHasDiameter} {isHasBirth}
+				{label}
 			</li>
 			);
 		});
@@ -45,10 +24,9 @@ export default class ItemList extends Component {
 
 	render() {
 
-		const { itemList, loading, error } = this.state;
-				
-		const onError = loading && error ? <Errors /> : null;
-		const itemData = this.getItemList(itemList);
+		const {data, loading, error} = this.props;
+		const itemData = this.getItemList(data);
+		const onError = loading && error ? <Errors /> : null;		
 		const preloader = loading ? <Loader /> : null;
 
 		return(
@@ -62,3 +40,42 @@ export default class ItemList extends Component {
 		);
 	};
 };
+
+const withData = (View) => {
+	return class extends Component {
+		state = {
+			data: [],
+			loading: true,
+			error: false
+		};	
+
+		onErrors = (err) => {
+			this.setState({
+				error: true
+			})
+		}
+	
+		componentDidMount() {		
+			const {itemData} = this.props;
+	
+			itemData().then(data => {
+				this.setState({
+					data,
+					loading: false
+				});
+			}, this.onErrors);		
+		}
+	
+		render() {
+			
+		const { data, loading, error } = this.state;				
+
+
+		return <View {...this.props} data={data} loading={loading} error={error} />;
+
+
+		}
+	}
+}
+
+export default withData(ItemList);

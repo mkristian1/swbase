@@ -3,7 +3,16 @@ import './item-details.css';
 import Loader from '../loader/loader';
 import Errors from '../errors/errors';
 
-export default class ItemDetails extends Component {
+
+const Record = ({ item, feature, label }) => {
+	return (
+		<p className="list-group-item list-group-item-action">
+			{label}: {item[feature]}
+		</p>
+	);
+}
+
+class ItemDetails extends Component {
 
 	state = {
 		item: [],
@@ -24,7 +33,7 @@ export default class ItemDetails extends Component {
 
 	updateItem() {
 		const { itemId, itemData, itemImgUrl } = this.props;
-	
+
 		itemData(itemId)
 			.then(item => {
 				this.setState({
@@ -43,11 +52,19 @@ export default class ItemDetails extends Component {
 	}
 
 	render() {
-		const { item, image, error, loading} = this.state;
+
+		const { item, image, error, loading } = this.state;
+
+		const children = React.Children.map(this.props.children, (child) => {
+			return React.cloneElement(child, { item });
+		});
+
 		const onError = loading && error ? <Errors /> : null;
 		const preLoader = loading ? <Loader /> : null;
-		const content = !loading && !error ? <ViewItem item={item} img={image} /> : null;
-	
+		const content = !loading && !error ? <ViewItem children={children} item={item} img={image} /> : null;
+
+
+
 		return (
 			<div className="item-details">
 				<div className="card border-primary mb-3">
@@ -61,9 +78,9 @@ export default class ItemDetails extends Component {
 };
 
 
-const ViewItem = ({ item, img}) => {
-	const { name,birthYear, mass, height, hairColor } = item;
-	
+const ViewItem = ({ item, img, children }) => {
+	const { name } = item;
+
 	return (
 		<React.Fragment>
 			<div className="card-header">
@@ -74,20 +91,15 @@ const ViewItem = ({ item, img}) => {
 			<div className="card-body">
 				<img className="float-md-right img-fluid rounded" alt={name} src={img} />
 				<div className="list-group">
-					<p className="list-group-item list-group-item-action">
-						Birth Year: {birthYear}
-					</p>
-					<p className="list-group-item list-group-item-action">
-						Mass: {mass}kg
-					</p>
-					<p className="list-group-item list-group-item-action">
-						Height: {height}cm
-					</p>
-					<p className="list-group-item list-group-item-action">
-						Hair Color: {hairColor}
-					</p>
+					{children}
 				</div>
 			</div>
 		</React.Fragment>
 	);
 };
+
+
+export {
+	Record,
+	ItemDetails
+}
