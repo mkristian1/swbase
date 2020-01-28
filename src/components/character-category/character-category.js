@@ -42,7 +42,7 @@ export default class CharacterCategory extends Component {
         );
 
         return (
-            <MainContent left={itemListCharacter} right={CharacterTemplate} />
+            <MainContent left={<p>ss </p>} right={CharacterTemplate} />
         );
     };
 

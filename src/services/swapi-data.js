@@ -21,7 +21,7 @@ export default class SwapiData {
 		return this.transformPlanet(PlanetArr);
 	}
 
-	getPlanetImg = ({id}) => {
+	getPlanetImg = ({ id }) => {
 		return `${this._imgBase}/planets/${id}.jpg`
 	};
 
@@ -36,18 +36,23 @@ export default class SwapiData {
 		return this.transformCharacter(characterArr);
 	}
 
-	getCharacterImg = ({id}) => {
+	getCharacterImg = ({ id }) => {
 		return `${this._imgBase}/characters/${id}.jpg`
 	};
 
 	getAllVehicles = async () => {
-		const allVehicles = await this.getData('/vehicles/');
-		return allVehicles.results;
+		const allVehicleArr = await this.getData('/vehicles/');
+		return allVehicleArr.results.map(this.transformVehicle);
 	}
 
 	getVehicle = async (id) => {
-		return this.getData(`/vehicles/${id}`);
+		const vehicleArr = await this.getData(`/vehicles/${id}`);
+		return this.transformVehicle(vehicleArr);
 	}
+
+	getVehicleImg = ({ id }) => {
+		return `${this._imgBase}/vehicles/${id}.jpg`
+	};
 
 	getAllStarships = async () => {
 		const AllStarshipsArr = await this.getData('/starships/');
@@ -95,6 +100,17 @@ export default class SwapiData {
 			diameter: planet.diameter,
 			rotationPeriod: planet.rotation_period,
 			gravity: planet.gravity
+		}
+	}
+
+	transformVehicle = (vehicle) => {
+		return {
+			id: this.getId(vehicle),
+			name: vehicle.name,
+			model: vehicle.model,
+			manufacturer: vehicle.manufacturer,
+			cost: vehicle.cost_in_credits,
+			passengers: vehicle.passengers
 		}
 	}
 }
