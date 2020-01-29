@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-const withData = (View, itemData) => {
+const withData = (View) => {
     return class extends Component {
         state = {
             data: [],
@@ -17,7 +17,7 @@ const withData = (View, itemData) => {
 
         componentDidMount() {
 
-            itemData().then(data => {
+            this.props.itemData().then(data => {
                 this.setState({
                     data,
                     loading: false

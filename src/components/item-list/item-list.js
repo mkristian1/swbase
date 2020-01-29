@@ -7,7 +7,7 @@ import Errors from '../errors/errors';
 
 const ItemList = (props) =>  {		
 
-		const {data, loading, error, getSelectedCharacter,
+		const {data, loading, error, getSelectedItem,
 			   children: renderLabel} = props;
 
 		const itemData = data.map((item) => {
@@ -17,7 +17,7 @@ const ItemList = (props) =>  {
 			return(
 			<li key={id} className="list-group-item d-flex 
 			justify-content-between align-items-center"
-			onClick={() => getSelectedCharacter(id)}>
+			onClick={() => getSelectedItem(id)}>
 				{label}
 			</li>
 			);
