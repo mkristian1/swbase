@@ -4,6 +4,7 @@ header h3.app-name {
 
 header .btn-group a {
 	color: #fff;
+	font-size:1.2rem;
 }
 
 header .btn-group a:hover {
