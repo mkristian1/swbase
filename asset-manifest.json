@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/swbase/static/css/main.d603eda6.chunk.css",
+    "main.css": "/swbase/static/css/main.b836c300.chunk.css",
     "main.js": "/swbase/static/js/main.e2198f37.chunk.js",
     "main.js.map": "/swbase/static/js/main.e2198f37.chunk.js.map",
     "runtime-main.js": "/swbase/static/js/runtime-main.a838d02d.js",
@@ -8,9 +8,9 @@
     "static/js/2.ee675cf0.chunk.js": "/swbase/static/js/2.ee675cf0.chunk.js",
     "static/js/2.ee675cf0.chunk.js.map": "/swbase/static/js/2.ee675cf0.chunk.js.map",
     "index.html": "/swbase/index.html",
-    "precache-manifest.1bcc823a19fb340c84a97c333484e195.js": "/swbase/precache-manifest.1bcc823a19fb340c84a97c333484e195.js",
+    "precache-manifest.5b8229904cb871687f87734e666854ff.js": "/swbase/precache-manifest.5b8229904cb871687f87734e666854ff.js",
     "service-worker.js": "/swbase/service-worker.js",
-    "static/css/main.d603eda6.chunk.css.map": "/swbase/static/css/main.d603eda6.chunk.css.map",
+    "static/css/main.b836c300.chunk.css.map": "/swbase/static/css/main.b836c300.chunk.css.map",
     "static/js/2.ee675cf0.chunk.js.LICENSE": "/swbase/static/js/2.ee675cf0.chunk.js.LICENSE",
     "static/media/app.css": "/swbase/static/media/bg.b673826f.png",
     "static/media/starwars-glyphicons.css": "/swbase/static/media/starwars-glyphicons-webfont.7eb176e2.ttf"
@@ -18,7 +18,7 @@
   "entrypoints": [
     "static/js/runtime-main.a838d02d.js",
     "static/js/2.ee675cf0.chunk.js",
-    "static/css/main.d603eda6.chunk.css",
+    "static/css/main.b836c300.chunk.css",
     "static/js/main.e2198f37.chunk.js"
   ]
 }
