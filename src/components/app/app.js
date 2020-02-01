@@ -15,22 +15,31 @@ export default class App extends Component {
 	swapiData = new SwapiData();
 
 	render() {
-
 		return (
-
 			<SwapiDataProvider value={this.swapiData}>
-				<div className="sw-app">
-					<Header />
-					<Characters />
-					<Planets />
-					<Vehicles />
-					<div className="row">
-						<div className="col-md-12 mb-4">
-							<RandomStarships />
+				<Router>
+					<div className="sw-app">
+						<Header />
+						<Route path='/' exact>
+						<Characters />
+						</Route>
+						<Route path='/characters'>
+							<Characters />
+						</Route>
+						<Route path='/planets'>
+							<Planets />
+						</Route>
+						<Route path='/vehicles'>
+							<Vehicles />
+						</Route>
+						<div className="row">
+							<div className="col-md-12 mb-4">
+								<RandomStarships />
+							</div>
 						</div>
+						<RandomQuotes quotes={QuotesDatabase} />
 					</div>
-					<RandomQuotes quotes={QuotesDatabase} />
-				</div>
+				</Router>
 			</SwapiDataProvider>
 		);
 	}

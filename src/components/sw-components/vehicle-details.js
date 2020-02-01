@@ -8,6 +8,7 @@ const VehicleDetails = (props) => {
         <ItemDetails {...props} >
             <Record feature="model" label="Model" />
             <Record feature="manufacturer" label="Manufacturer" />
+            <Record feature="passengers" label="Passengers" />
         </ItemDetails >
     );
 };

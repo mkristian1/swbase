@@ -6,6 +6,7 @@ const CharacterDetails = (props) => {
 
     return (
         <ItemDetails {...props} >
+            <Record feature="birthYear" label="Birth Year" />
             <Record feature="height" label="Height" />
             <Record feature="hairColor" label="Hair Color" />
         </ItemDetails >
