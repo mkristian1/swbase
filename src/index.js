@@ -5,6 +5,6 @@ import App from './components/app';
 import './sw-icons/fonts/starwars-glyphicons-webfont.ttf';
 import './sw-icons/css/starwars-glyphicons.css';
 
-console.log('tet');
+
 
 ReactDOM.render(<App />, document.getElementById('root'));
