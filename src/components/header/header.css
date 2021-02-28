@@ -4,11 +4,10 @@ header h3.app-name {
 
 header .btn-group a {
 	color: #fff;
-<<<<<<< HEAD
 	font-size: 1.2rem;
-=======
+
 	font-size:1.2rem;
->>>>>>> 7921199e609e6f4c43ca8585e38297b4f44f15db
+
 }
 
 header .btn-group a:hover {

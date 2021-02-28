@@ -17,7 +17,7 @@ export default class App extends Component {
 	render() {
 		return (
 			<SwapiDataProvider value={this.swapiData}>
-				<Router>
+				<Router basename={process.env.PUBLIC_URL}>
 					<div className="sw-app">
 						<Header />
 						<Route path='/' exact>
